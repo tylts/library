@@ -1,0 +1,24 @@
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+  
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+.library {
+    display: grid;
+    grid-template-columns: repeat(3, 310px);
+    grid-template-rows: repeat(3, auto);
+    justify-items: center;
+    grid-auto-flow: row;
+}
+
+.book {
+    border: 1px solid black;
+    height: 500px;
+    width: 300px;
+}
