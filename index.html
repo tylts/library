@@ -10,9 +10,21 @@
 <body>
     <div class="library">
     </div>
-    <div class="add-book-form">
-        <button id="add-book">Add Book</button>
+
+    <div class="add-book-form" id="form-pop-up">
+        <div class="form-container">
+            <input type="text" placeholder="Title" id="title">
+            <input type="text" placeholder="Author" id="author">
+            <input type="number" min="0" placeholder="How many pages?" id="pages">
+            <p>This book has been read.
+            <input type="checkbox" value="read" id="read-value"></p>
+            <div id='btn-container'>
+                <button id='add'>Add Book</button>
+                <button id='cancel'>Cancel</button>
+            </div>
+        </div>
     </div>
+    <button id="add-book-btn">Add Book</button>
     <script src="script.js"></script>
 </body>
 </html>
