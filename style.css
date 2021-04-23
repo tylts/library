@@ -9,6 +9,10 @@ html {
     box-sizing: inherit;
 }
 
+body {
+    font-family: 'Times New Roman', Times, serif;
+}
+
 .library {
     display: flex;
     flex-direction: row;
@@ -43,6 +47,13 @@ html {
     font-size: 14px;
 }
 
+.book-x {
+    text-align: end;
+    font-size: 15px;
+    opacity: 0;
+    cursor: pointer;
+}
+
 .read {
     font-size: 10px;
     position: absolute;
@@ -61,21 +72,25 @@ html {
     text-align: center;
     cursor: pointer;
     background-color: #F3F3F3;
+    transition: transform .2s, background-color .2s, box-shadow .2s;
 }
 
 .new-book:hover {
     background-color: #E8E8E8;
+    transform: scale(1.02);
+    box-shadow: 0px 0px 50px 0px lightslategray;
 }
 
 .add-book-form {
     top: 50%;
     left: 50%;
-    max-width: 300px;
-    margin-left: -150px;
-    margin-top: -150px;
-    display: none;
+    padding: 20px;
+    max-width: 400px;
+    margin-left: -173px;
+    margin-top: -149px;
     position: fixed;
-    border: 3px solid #f1f1f1;
+    border: 2px solid black;
+    border-radius: 5%;
     z-index: 9;
 }
 
@@ -83,10 +98,6 @@ html {
     max-width: 300px;
     padding: 10px;
     background-color: white;
-}
-
-.form-container h1 {
-    text-align: center;
 }
 
 .form-container input[type=text], .form-container input[type=number]{
@@ -97,8 +108,21 @@ html {
     background: #f1f1f1;
 }
 
+.form-container input[type=checkbox] {
+    height: 45px;
+}
+
+#btn-container {
+    display: inline-flex;
+    align-items: stretch;
+}
+
 #btn-container button {
     width: 135px;
     padding: 16px 20px;
     margin-top: 1rem;
+}
+
+#cancel {
+    margin-left: 10px;
 }

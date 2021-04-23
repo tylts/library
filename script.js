@@ -58,8 +58,16 @@ function displayBooks() {
         bookCard = document.createElement('div');
         bookCard.classList.add('book');
         library.appendChild(bookCard);
-        bookCard.innerHTML = myLibrary[i].info();
+        addXToBook(i);
+        bookCard.innerHTML += myLibrary[i].info();
+
+        //removes books by clicking the X
+        allBookX[i].addEventListener('click', function(){
+            myLibrary.splice(i, 1);
+            displayBooks();
+        })
     }
+
     let newBook = document.createElement('div');
     newBook.classList.add('new-book');
     newBook.textContent = '+';
@@ -67,6 +75,20 @@ function displayBooks() {
     library.appendChild(newBook);
 
     accessReadStatus();
+}
+
+function addXToBook(i){
+    bookX = document.createElement('span');
+    bookX.classList.add('book-x');
+    bookX.textContent = '✕';
+    bookCard.appendChild(bookX);
+    allBookX = document.getElementsByClassName('book-x');
+    bookCard.addEventListener('mouseover', function() {
+        allBookX[i].style.opacity = '100%';
+    })
+    bookCard.addEventListener('mouseleave', function() {
+        allBookX[i].style.opacity = '0';
+    })
 }
 
 function openForm() {
@@ -83,7 +105,6 @@ function clearInputs() {
     formPages.value = null;
     formRead.checked = null;
 }
-
 
 function accessReadStatus() {
     readStatus = document.getElementsByClassName('read');
