@@ -1,5 +1,4 @@
 const library = document.querySelector('.library');
-const addFormBtn = document.querySelector('#add-book-btn');
 const form = document.querySelector('.add-book-form');
 const addBookBtn = document.querySelector('#add');
 const cancelBtn = document.querySelector('#cancel');
@@ -9,7 +8,8 @@ const formAuthor = document.querySelector('#author');
 const formPages = document.querySelector('#pages');
 const formRead = document.querySelector('#read-value');
 
-addFormBtn.addEventListener('click', openForm);
+let readStatus;
+
 addBookBtn.addEventListener('click', addBookToLibrary);
 cancelBtn.addEventListener('click', closeForm);
 
@@ -21,19 +21,23 @@ let myLibrary = [theHobbit, twilight];
 function Book(title, author, pages, hasBeenRead) {
     this.title = title
     this.author = author
-    this.pages = pages
+    this.pages = pages + ' pages'
     this.hasBeenRead = hasBeenRead
 }
 
 Book.prototype.info = function() {
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.readStatus()}`;
+    return `<h1>${this.title}</h1> <h2>by ${this.author}</h2> <p>${this.pages}</p> <span class='read'>${this.readStatus()}</span>`;
 }
 
 Book.prototype.readStatus = function() {
-    return (this.hasBeenRead ? 'read' : 'has not read')
+    return (this.hasBeenRead ? 'Read' : 'Unread')
 }
 
 function addBookToLibrary() {
+    if (formTitle.value == "" || formAuthor.value == "" || formPages.value == "") {
+        return;
+    } else {
+
     let title = formTitle.value;
     let author = formAuthor.value;
     let pages = formPages.value;
@@ -42,6 +46,8 @@ function addBookToLibrary() {
     myLibrary.push(new Book(title, author, pages, hasBeenRead));
     displayBooks();
     clearInputs();
+    document.getElementById('form-pop-up').style.display = 'none';
+    }
 }
 
 function displayBooks() {
@@ -52,18 +58,23 @@ function displayBooks() {
         bookCard = document.createElement('div');
         bookCard.classList.add('book');
         library.appendChild(bookCard);
-        bookCard.textContent = myLibrary[i].info();
+        bookCard.innerHTML = myLibrary[i].info();
     }
+    let newBook = document.createElement('div');
+    newBook.classList.add('new-book');
+    newBook.textContent = '+';
+    newBook.addEventListener('click', openForm);
+    library.appendChild(newBook);
+
+    accessReadStatus();
 }
 
 function openForm() {
     document.getElementById('form-pop-up').style.display = 'block';
-    addFormBtn.style.display = 'none';
 }
 
 function closeForm() {
     document.getElementById('form-pop-up').style.display = 'none';
-    addFormBtn.style.display = null;
 }
 
 function clearInputs() {
@@ -71,6 +82,17 @@ function clearInputs() {
     formAuthor.value = null;
     formPages.value = null;
     formRead.checked = null;
+}
+
+
+function accessReadStatus() {
+    readStatus = document.getElementsByClassName('read');
+    for (let i=0; i<readStatus.length; i++) {
+        readStatus[i].addEventListener('click', function () {
+            myLibrary[i].hasBeenRead = !myLibrary[i].hasBeenRead;
+            displayBooks();
+        });
+    }
 }
 
 displayBooks();
