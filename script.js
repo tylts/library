@@ -2,16 +2,22 @@ const library = document.querySelector('.library');
 const form = document.querySelector('.add-book-form');
 const addBookBtn = document.querySelector('#add');
 const cancelBtn = document.querySelector('#cancel');
+const toggle = document.querySelector('.check-read');
 
 const formTitle = document.querySelector('#title');
 const formAuthor = document.querySelector('#author');
 const formPages = document.querySelector('#pages');
 const formRead = document.querySelector('#read-value');
 
-let readStatus;
-
 addBookBtn.addEventListener('click', addBookToLibrary);
 cancelBtn.addEventListener('click', closeForm);
+toggle.addEventListener('click', function() {
+    if (toggle.textContent.includes('This book has not been read.')) {
+        toggle.textContent = 'This book has been read. (Click to change)';
+    } else {
+        toggle.textContent = 'This book has not been read. (Click to change)';
+    }
+})
 
 const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', '295', false);
 const twilight = new Book('Twilight', 'Stephanie Meyer', '544', true);
@@ -41,12 +47,20 @@ function addBookToLibrary() {
     let title = formTitle.value;
     let author = formAuthor.value;
     let pages = formPages.value;
-    let hasBeenRead = formRead.checked;
+    let hasBeenRead = checkRead();
 
     myLibrary.push(new Book(title, author, pages, hasBeenRead));
     displayBooks();
     clearInputs();
     document.getElementById('form-pop-up').style.display = 'none';
+    }
+}
+
+function checkRead() {
+    if (toggle.textContent.includes('This book has not been read.')) {
+        return false;
+    } else {
+        return true;
     }
 }
 
@@ -103,7 +117,7 @@ function clearInputs() {
     formTitle.value = null;
     formAuthor.value = null;
     formPages.value = null;
-    formRead.checked = null;
+    toggle.textContent = 'This book has not been read. (Click to change)';
 }
 
 function accessReadStatus() {
