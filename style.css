@@ -129,6 +129,7 @@ body {
     font-family: 'Times New Roman', Times, serif;
     grid-column: 1 / 2;
     width: 135px;
+    height: 52px;
     padding: 16px 20px;
     margin-top: 1rem;
 }
@@ -137,11 +138,11 @@ body {
     font-family: 'Times New Roman', Times, serif;
     grid-column: 2 / 3;
     width: 135px;
+    height: 52px;
     padding: 16px 20px;
     margin-top: 1rem;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 500px) {
 
-    
 }
