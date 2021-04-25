@@ -24,10 +24,10 @@ body {
 
 .book {
     border: 2px solid black;
-    margin: 30px 15px;
+    margin: 30px 2px;
     padding: 12px;
     border-radius: 5%;
-    height: 250px;
+    height: 200px;
     width: 150px;
     display: flex;
     flex-direction: column;
@@ -35,7 +35,6 @@ body {
 }
 
 .book h1 {
-    padding-top: 2rem;
     font-size: 25px;
 }
 
@@ -48,6 +47,7 @@ body {
 }
 
 .book-x {
+    font-family: Arial, Helvetica, sans-serif;
     text-align: end;
     font-size: 15px;
     opacity: 0;
@@ -64,10 +64,10 @@ body {
 .new-book {
     font-size: 4rem;
     border: 2px solid black;
-    margin: 30px 15px;
-    padding: 100px 0;
+    margin: 30px 2px;
+    padding: 75px 0;
     border-radius: 5%;
-    height: 250px;
+    height: 200px;
     width: 150px;
     text-align: center;
     cursor: pointer;
@@ -139,4 +139,9 @@ body {
     width: 135px;
     padding: 16px 20px;
     margin-top: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+
+    
 }
