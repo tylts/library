@@ -19,24 +19,35 @@ toggle.addEventListener('click', function() {
     }
 })
 
+Storage.prototype.setObject = function(key, value) {
+    this.setItem(key, JSON.stringify(value));
+}
+
+Storage.prototype.getObject = function(key) {
+    var value = this.getItem(key);
+    return value && JSON.parse(value);
+}
+
 const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', '295', false);
 const twilight = new Book('Twilight', 'Stephanie Meyer', '544', true);
 
-let myLibrary = [theHobbit, twilight];
+let myLibrary = [];
 
 function Book(title, author, pages, hasBeenRead) {
     this.title = title
     this.author = author
-    this.pages = pages + ' pages'
+    this.pages = pages
     this.hasBeenRead = hasBeenRead
 }
 
 Book.prototype.info = function() {
-    return `<h1>${this.title}</h1> <h2>by ${this.author}</h2> <p>${this.pages}</p> <span class='read'>${this.readStatus()}</span>`;
+    return `<h1>${this.title}</h1> <h2>by ${this.author}</h2> <p>${this.pages} pages</p> <span class='read'>${this.readStatus()}</span>`;
 }
 
 Book.prototype.readStatus = function() {
-    return (this.hasBeenRead ? 'Read' : 'Unread')
+    let status = (this.hasBeenRead ? 'Read' : 'Unread');
+    localStorage.setObject('books', myLibrary);
+    return status;
 }
 
 function addBookToLibrary() {
@@ -50,10 +61,11 @@ function addBookToLibrary() {
     let hasBeenRead = checkRead();
 
     myLibrary.push(new Book(title, author, pages, hasBeenRead));
-    displayBooks();
+    displayBooks(title, author, pages, hasBeenRead);
     clearInputs();
     document.getElementById('form-pop-up').style.display = 'none';
     }
+    localStorage.setObject('books', myLibrary)
 }
 
 function checkRead() {
@@ -64,10 +76,16 @@ function checkRead() {
     }
 }
 
+
+retrieveBooksFromStorage()
+
+
 function displayBooks() {
+
     while (library.firstChild) {
         library.removeChild(library.firstChild)
     }
+
     for (let i=0; i<myLibrary.length; i++) {
         bookCard = document.createElement('div');
         bookCard.classList.add('book');
@@ -78,6 +96,7 @@ function displayBooks() {
         //removes books by clicking the X
         allBookX[i].addEventListener('click', function(){
             myLibrary.splice(i, 1);
+            localStorage.setObject('books', myLibrary);
             displayBooks();
         })
     }
@@ -90,6 +109,7 @@ function displayBooks() {
 
     accessReadStatus();
 }
+
 
 function addXToBook(i){
     bookX = document.createElement('span');
@@ -127,6 +147,14 @@ function accessReadStatus() {
             myLibrary[i].hasBeenRead = !myLibrary[i].hasBeenRead;
             displayBooks();
         });
+    }
+}
+
+function retrieveBooksFromStorage() {
+    if (!localStorage.length) return;
+    let retrievedBooks = localStorage.getObject('books');
+    for (let i=0; i<retrievedBooks.length; i++) {
+        myLibrary.push(new Book(retrievedBooks[i].title, retrievedBooks[i].author, retrievedBooks[i].pages, retrievedBooks[i].hasBeenRead));
     }
 }
 
