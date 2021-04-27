@@ -49,15 +49,17 @@ body {
 }
 
 .book h1 {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .book h2 {
-    font-size: 15px;
+    margin-top: 1rem;
+    font-size: 10.5px;
 }
 
 .book p {
-    font-size: 14px;
+    margin-top: 1rem;
+    font-size: 10px;
 }
 
 .book-x {
@@ -69,7 +71,7 @@ body {
 }
 
 .read {
-    font-size: 10px;
+    font-size: 9.5px;
     position: absolute;
     bottom: 28px;
     cursor: pointer;
