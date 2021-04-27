@@ -1,3 +1,4 @@
+// Query Selectors
 const library = document.querySelector('.library');
 const form = document.querySelector('.add-book-form');
 const addBookBtn = document.querySelector('#add');
@@ -9,6 +10,7 @@ const formAuthor = document.querySelector('#author');
 const formPages = document.querySelector('#pages');
 const formRead = document.querySelector('#read-value');
 
+// Event Listeners
 addBookBtn.addEventListener('click', addBookToLibrary);
 cancelBtn.addEventListener('click', closeForm);
 toggle.addEventListener('click', function() {
@@ -19,6 +21,7 @@ toggle.addEventListener('click', function() {
     }
 })
 
+// localStorage magic. This enables setting and getting objects and arrays.
 Storage.prototype.setObject = function(key, value) {
     this.setItem(key, JSON.stringify(value));
 }
@@ -27,9 +30,6 @@ Storage.prototype.getObject = function(key) {
     var value = this.getItem(key);
     return value && JSON.parse(value);
 }
-
-const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', '295', false);
-const twilight = new Book('Twilight', 'Stephanie Meyer', '544', true);
 
 let myLibrary = [];
 
@@ -59,7 +59,8 @@ function addBookToLibrary() {
     let author = formAuthor.value;
     let pages = formPages.value;
     let hasBeenRead = checkRead();
-
+    
+    // Creates a Book object and pushes it to the myLibrary array
     myLibrary.push(new Book(title, author, pages, hasBeenRead));
     displayBooks(title, author, pages, hasBeenRead);
     clearInputs();
@@ -86,6 +87,7 @@ function displayBooks() {
         library.removeChild(library.firstChild)
     }
 
+    // Creates book cards and then adds the book's info
     for (let i=0; i<myLibrary.length; i++) {
         bookCard = document.createElement('div');
         bookCard.classList.add('book');
@@ -110,7 +112,7 @@ function displayBooks() {
     accessReadStatus();
 }
 
-
+// this adds the X to the book card and with some mouse hover magic
 function addXToBook(i){
     bookX = document.createElement('span');
     bookX.classList.add('book-x');
@@ -150,6 +152,7 @@ function accessReadStatus() {
     }
 }
 
+// Creats the books again through the Book object after pulling from localStorage
 function retrieveBooksFromStorage() {
     if (!localStorage.length) return;
     let retrievedBooks = localStorage.getObject('books');
