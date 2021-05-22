@@ -119,12 +119,17 @@ function addXToBook(i){
     bookX.textContent = '✕';
     bookCard.appendChild(bookX);
     allBookX = document.getElementsByClassName('book-x');
-    bookCard.addEventListener('mouseover', function() {
+    // X's are shown by default if on mobile
+    if (window.innerWidth >= 500) {
+        bookCard.addEventListener('mouseover', function() {
+            allBookX[i].style.opacity = '100%';
+        })
+        bookCard.addEventListener('mouseleave', function() {
+            allBookX[i].style.opacity = '0';
+        })
+    } else {
         allBookX[i].style.opacity = '100%';
-    })
-    bookCard.addEventListener('mouseleave', function() {
-        allBookX[i].style.opacity = '0';
-    })
+    }
 }
 
 function openForm() {
